@@ -12,7 +12,7 @@ export default defineConfig({
     react(),
     tsconfigPaths({
       root: './',
-      projects: [],
+      projects: ['tsconfig.base.json'],
     }),
   ],
 

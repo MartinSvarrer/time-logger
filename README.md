@@ -22,14 +22,15 @@ Visma E-Commerce time logger task.
 - Navigate to http://localhost:4200/.
 - The app will automatically reload if you change any of the source files.
 
-## Test runner
+## Other tasks
 
-- Unit tests: `npx nx test`
-- Linter: `npx nx lint`
+- Unit tests: `npx nx run-many --target=test`
+- Linter: `npx nx run-many --target=lint`
+- Production build: `npx nx run-many --target=build`
 
-## Production build
+You can also just run the tasks for the default app:
 
-- Run `npx nx build`
+- `npx nx <task>` for example `npx nx build` or `npx nx test`.
 
 ## Understand this workspace
 
