@@ -11,6 +11,12 @@ Visma E-Commerce time logger task.
 1. Install ChakraUI component library.
    - ChakraUI has a great developer experience and flexible theming capabilities.
    - Having a component library helps me develop faster and makes the app more consistent.
+1. Create shared/ui project for custom UI components to distinguish between app and reusable components.
+1. Other dependencies:
+   - reach-router for basic app routing.
+   - msw for mocking data from a server.
+   - react-query and axios for easy data fetching and cache management.
+   - formik for from control
 
 # Getting Started
 
