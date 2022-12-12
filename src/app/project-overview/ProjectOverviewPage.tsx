@@ -1,10 +1,12 @@
+import { Heading } from '@chakra-ui/react';
+
 /* eslint-disable-next-line */
 export interface ProjectOverviewProps {}
 
 export function ProjectOverviewPage(props: ProjectOverviewProps) {
   return (
     <div>
-      <h1>Welcome to ProjectOverview!</h1>
+      <Heading>Hello world</Heading>
     </div>
   );
 }

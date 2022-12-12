@@ -8,11 +8,9 @@ Visma E-Commerce time logger task.
    - NX is a great tool for scaling a repo to include multiple teams as it allows to run, build and test different parts of the repo independently.
    - NX comes with strict TypeScript config, decent lint rules and emotion css.
    - The workspace is configured as a modern Vite app with Vitest test runner. Webpack would be a safer choice, but I wanted to try out the Vite stack some time, and I think its ready for production.
-1. Install ChakraUI component library.
-   - ChakraUI has a great developer experience and flexible theming capabilities.
-   - Having a component library helps me develop faster and makes the app more consistent.
-1. Create shared/ui project for custom UI components to distinguish between app and reusable components.
-1. Other dependencies:
+1. App is structured by features
+1. Dependencies used:
+   - ChakraUI component library.
    - react-router-dom for basic app routing.
    - msw for mocking data from a server.
    - react-query and axios for easy data fetching and cache management.

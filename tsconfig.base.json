@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@time-logger/shared/ui": ["shared/ui/src/index.ts"]
+      "@time-logger/components": ["src/components/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
