@@ -2,6 +2,10 @@ import {
   Badge,
   Button,
   ButtonGroup,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Table,
   TableCaption,
   TableContainer,
@@ -12,36 +16,84 @@ import {
   Tr,
   VStack,
 } from '@chakra-ui/react';
+import { minutesToHours } from '@time-logger/lib/time/Time';
+import { useMemo } from 'react';
+import { useProjects } from './projects';
+
+const dateFormat = Intl.DateTimeFormat('en-US');
+const durationFormat = Intl.NumberFormat('en-US', {
+  maximumFractionDigits: 1,
+});
 
 export default function ProjectsPage() {
+  const { data } = useProjects();
+
+  const projects = useMemo(() => {
+    return (data?.projects ?? []).map((project) => ({
+      ...project,
+      deadline: new Date(project.deadline),
+    }));
+  }, [data]);
+
   return (
-    <VStack padding={2} gap={2} alignItems="flex-start">
-      <TableContainer>
-        <Table variant="simple">
+    <VStack padding={2} gap={2} width="100%">
+      <TableContainer flex={1} width="100%">
+        <Table variant="simple" width="100%">
           <TableCaption>List of projects</TableCaption>
           <Thead>
             <Tr>
               <Th>Project name</Th>
-              <Th>Deadline</Th>
-              <Th isNumeric>Time spent</Th>
+              <Th>
+                <Button
+                  variant="link"
+                  textTransform="inherit"
+                  color="inherit"
+                  fontSize="inherit"
+                  fontWeight="inherit"
+                >
+                  Deadline
+                </Button>
+              </Th>
               <Th>Project status</Th>
+              <Th isNumeric>Time spent</Th>
               <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>Project ABC</Td>
-              <Td isNumeric>12/12-2022</Td>
-              <Td isNumeric>25</Td>
-              <Td>
-                <Badge colorScheme="green">Open</Badge>
-              </Td>
-              <Td>
-                <ButtonGroup>
-                  <Button>Register time</Button>
-                </ButtonGroup>
-              </Td>
-            </Tr>
+            {projects.map((project) => (
+              <Tr key={project.id}>
+                <Td>{project.name}</Td>
+                <Td>{dateFormat.format(project.deadline)}</Td>
+                <Td>
+                  {project.status === 'open' ? (
+                    <Badge colorScheme="green">Open</Badge>
+                  ) : (
+                    <Badge colorScheme="red">Close</Badge>
+                  )}
+                </Td>
+                <Td isNumeric>
+                  {durationFormat.format(
+                    minutesToHours(project.timeSpent.value)
+                  )}
+                  h
+                </Td>
+                <Td>
+                  <Menu>
+                    <MenuButton
+                      as={Button}
+                      colorScheme="blue"
+                      variant="outline"
+                    >
+                      Actions
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem>Register time</MenuItem>
+                      <MenuItem>View details</MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>

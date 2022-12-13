@@ -1,13 +1,20 @@
-import { HStack, Link } from '@chakra-ui/react';
+import { Button, ButtonGroup } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import { APP_ROUTES } from '../AppRoutes';
 
 export default function TopBar() {
   return (
-    <HStack as="nav" p={2} shadow="base" flex={1}>
-      <Link as={NavLink} to={APP_ROUTES.projects} end>
+    <ButtonGroup
+      as="nav"
+      p={2}
+      shadow="base"
+      flex={1}
+      variant="ghost"
+      colorScheme="blue"
+    >
+      <Button as={NavLink} to={APP_ROUTES.projects} end>
         Projects
-      </Link>
-    </HStack>
+      </Button>
+    </ButtonGroup>
   );
 }

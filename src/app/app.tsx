@@ -2,7 +2,7 @@ import {
   AppLayout,
   AppLayoutHeader,
   AppLayoutMain,
-} from '@time-logger/components';
+} from '@time-logger/components/layout/AppLayout';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { APP_ROUTES } from './AppRoutes';

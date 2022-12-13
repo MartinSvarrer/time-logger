@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@time-logger/components": ["src/components/index.ts"]
+      "app/*": ["src/app/*"],
+      "@time-logger/lib/*": ["src/lib/*"],
+      "@time-logger/components/*": ["src/components/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
