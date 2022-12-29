@@ -1,4 +1,4 @@
-import { projectsHandlers } from 'app/projects/projects.mock';
 import { setupWorker } from 'msw';
+import { handlers } from './handlers';
 
-export const browserMockServer = setupWorker(...projectsHandlers);
+export const browser = setupWorker(...handlers);

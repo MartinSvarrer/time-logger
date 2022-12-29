@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom/client';
 
 import App from './app/App';
 import AppProviders from './app/AppProviders';
-import { browserMockServer } from './mocks/browser';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,7 +17,11 @@ const app = (
 );
 
 if (import.meta.env.DEV) {
-  browserMockServer.start().then(() => root.render(app));
+  // Dynamic require to not include msw in production bundle
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  import('./mocks/browser')
+    .then(({ browser }) => browser.start())
+    .then(() => root.render(app));
 } else {
   root.render(app);
 }

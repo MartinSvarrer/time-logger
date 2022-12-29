@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "test/*": ["src/test/*"],
       "app/*": ["src/app/*"],
       "@time-logger/lib/*": ["src/lib/*"],
       "@time-logger/components/*": ["src/components/*"]

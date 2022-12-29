@@ -28,6 +28,7 @@
     "@nrwl/react": "15.3.0",
     "@nrwl/vite": "15.3.0",
     "@nrwl/workspace": "15.3.0",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "13.4.0",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",

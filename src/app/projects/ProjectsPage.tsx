@@ -20,20 +20,9 @@ import { minutesToHours } from '@time-logger/lib/time/Time';
 import { useMemo } from 'react';
 import { useProjects } from './projects';
 
-const dateFormat = Intl.DateTimeFormat('en-US');
-const durationFormat = Intl.NumberFormat('en-US', {
-  maximumFractionDigits: 1,
-});
-
 export default function ProjectsPage() {
   const { data } = useProjects();
-
-  const projects = useMemo(() => {
-    return (data?.projects ?? []).map((project) => ({
-      ...project,
-      deadline: new Date(project.deadline),
-    }));
-  }, [data]);
+  const projects = useMemo(() => data?.projects ?? [], [data]);
 
   return (
     <VStack padding={2} gap={2} width="100%">
@@ -63,7 +52,9 @@ export default function ProjectsPage() {
             {projects.map((project) => (
               <Tr key={project.id}>
                 <Td>{project.name}</Td>
-                <Td>{dateFormat.format(project.deadline)}</Td>
+                <Td>
+                  {new Date(project.deadline).toLocaleDateString('en-US')}
+                </Td>
                 <Td>
                   {project.status === 'open' ? (
                     <Badge colorScheme="green">Open</Badge>
@@ -72,8 +63,9 @@ export default function ProjectsPage() {
                   )}
                 </Td>
                 <Td isNumeric>
-                  {durationFormat.format(
-                    minutesToHours(project.timeSpent.value)
+                  {minutesToHours(project.timeSpent.value).toLocaleString(
+                    'en-US',
+                    { maximumFractionDigits: 1 }
                   )}
                   h
                 </Td>

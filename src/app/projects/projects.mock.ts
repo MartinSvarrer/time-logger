@@ -35,7 +35,10 @@ export const ProjectsResponseMock: ProjectsResponse = {
 };
 
 export const projectsHandlers = [
-  rest.get<ProjectsResponse>(PROJECTS.queryKey, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(ProjectsResponseMock));
+  rest.get(PROJECTS.queryKey, (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json<ProjectsResponse>(ProjectsResponseMock)
+    );
   }),
 ];
