@@ -17,12 +17,32 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { minutesToHours } from '@time-logger/lib/time/Time';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useProjects } from './projects';
 
 export default function ProjectsPage() {
   const { data } = useProjects();
   const projects = useMemo(() => data?.projects ?? [], [data]);
+  const [sorting, setSorting] = useState<'none' | 'asc' | 'desc'>('none');
+
+  function toggleSort() {
+    if (sorting === 'none') {
+      setSorting('asc');
+      return;
+    }
+
+    setSorting('none');
+  }
+
+  const sortedProjects = useMemo(() => {
+    if (sorting === 'none') {
+      return projects;
+    }
+
+    return projects
+      .slice()
+      .sort((a, b) => (new Date(a.deadline) > new Date(b.deadline) ? 1 : -1));
+  }, [projects, sorting]);
 
   return (
     <VStack padding={2} gap={2} width="100%">
@@ -39,6 +59,9 @@ export default function ProjectsPage() {
                   color="inherit"
                   fontSize="inherit"
                   fontWeight="inherit"
+                  isActive={sorting !== 'none'}
+                  _active={{ color: 'teal', textDecoration: 'underline' }}
+                  onClick={toggleSort}
                 >
                   Deadline
                 </Button>
@@ -49,7 +72,7 @@ export default function ProjectsPage() {
             </Tr>
           </Thead>
           <Tbody>
-            {projects.map((project) => (
+            {sortedProjects.map((project) => (
               <Tr key={project.id}>
                 <Td>{project.name}</Td>
                 <Td>
