@@ -25,7 +25,7 @@ export function App() {
           />
           <Route path={APP_ROUTES.projects} element={<ProjectsPage />} />
           <Route
-            path={APP_ROUTES.projectOverview}
+            path={APP_ROUTES.projectOverview()}
             element={<ProjectOverviewPage />}
           />
           <Route path={APP_ROUTES.fallback} element={<PageNotFoundPage />} />

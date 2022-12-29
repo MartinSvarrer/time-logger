@@ -1,6 +1,6 @@
 export const APP_ROUTES = {
   root: '/',
   projects: '/projects',
-  projectOverview: '/projects/:id',
+  projectOverview: (id = ':id') => `/projects/${id}`,
   fallback: '*',
 };

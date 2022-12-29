@@ -9,6 +9,7 @@ import {
   waitFor,
 } from 'test/test-utils';
 import { server } from '../../mocks/server';
+import { Location, useLocation } from 'react-router-dom';
 
 describe('ProjectsPage', () => {
   it('should show a list of projects in same order as received data', async () => {
@@ -61,5 +62,43 @@ describe('ProjectsPage', () => {
         furthestDeadlineProject.name
       )
     ).toBeTruthy();
+  });
+
+  it('should navigate to project overview page when project name is clicked', async () => {
+    // arrange
+    server.use(...projectsHandlers);
+
+    let currentLocation: Location = {
+      hash: '',
+      key: '',
+      pathname: '',
+      search: '',
+      state: null,
+    };
+
+    function CaptureCurrentLocation() {
+      currentLocation = useLocation();
+      return null;
+    }
+
+    renderWithProviders(
+      <>
+        <ProjectsPage />
+        <CaptureCurrentLocation />
+      </>
+    );
+
+    // act
+    const firstProject = ProjectsResponseMock.projects[0];
+
+    const tableBody = screen.getAllByRole('rowgroup')[1];
+    const firstProjectLinkBtn = await findByRole(tableBody, 'link', {
+      name: firstProject.name,
+    });
+
+    fireEvent.click(firstProjectLinkBtn);
+
+    // assert
+    expect(currentLocation?.pathname).include(firstProject.id);
   });
 });

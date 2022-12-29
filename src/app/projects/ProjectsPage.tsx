@@ -1,7 +1,6 @@
 import {
   Badge,
   Button,
-  ButtonGroup,
   Menu,
   MenuButton,
   MenuItem,
@@ -17,7 +16,9 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { minutesToHours } from '@time-logger/lib/time/Time';
+import { APP_ROUTES } from 'app/AppRoutes';
 import { useMemo, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useProjects } from './projects';
 
 export default function ProjectsPage() {
@@ -74,7 +75,17 @@ export default function ProjectsPage() {
           <Tbody>
             {sortedProjects.map((project) => (
               <Tr key={project.id}>
-                <Td>{project.name}</Td>
+                <Td>
+                  <Button
+                    variant="link"
+                    as={NavLink}
+                    to={APP_ROUTES.projectOverview(
+                      encodeURIComponent(project.id)
+                    )}
+                  >
+                    {project.name}
+                  </Button>
+                </Td>
                 <Td>
                   {new Date(project.deadline).toLocaleDateString('en-US')}
                 </Td>
@@ -82,7 +93,7 @@ export default function ProjectsPage() {
                   {project.status === 'open' ? (
                     <Badge colorScheme="green">Open</Badge>
                   ) : (
-                    <Badge colorScheme="red">Close</Badge>
+                    <Badge colorScheme="red">Closed</Badge>
                   )}
                 </Td>
                 <Td isNumeric>
@@ -103,7 +114,7 @@ export default function ProjectsPage() {
                     </MenuButton>
                     <MenuList>
                       <MenuItem>Register time</MenuItem>
-                      <MenuItem>View details</MenuItem>
+                      <MenuItem>View project</MenuItem>
                     </MenuList>
                   </Menu>
                 </Td>
