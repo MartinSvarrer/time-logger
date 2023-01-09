@@ -1,5 +1,10 @@
 import { rest } from 'msw';
-import { PROJECTS, ProjectsResponse } from './projects';
+import {
+  ProjectDetailsResponse,
+  PROJECTS,
+  ProjectsResponse,
+  TimeRegistration,
+} from './projects';
 
 export const ProjectsResponseMock: ProjectsResponse = {
   projects: [
@@ -35,10 +40,44 @@ export const ProjectsResponseMock: ProjectsResponse = {
 };
 
 export const projectsHandlers = [
-  rest.get(PROJECTS.queryKey, (req, res, ctx) => {
+  rest.get(PROJECTS.all.url, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json<ProjectsResponse>(ProjectsResponseMock)
+    );
+  }),
+
+  rest.get(PROJECTS.details.url(':id'), (req, res, ctx) => {
+    const { id } = req.params;
+
+    const project = ProjectsResponseMock.projects.find(
+      (project) => project.id === id
+    );
+
+    if (!project) {
+      return res(ctx.status(404, 'Project not found'));
+    }
+
+    const registrations = Array.from<unknown, TimeRegistration>(
+      { length: 20 },
+      (_, index) => ({
+        id: 'reg' + index,
+        description:
+          'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea sapiente magnam recusandae blanditiis similique illo provident officia repudiandae quis nemo dolorum error reprehenderit ut, perferendis animi, temporibus beatae nulla. Praesentium.',
+        registeredAt: new Date(Date.now()).toISOString(),
+        time: {
+          value: Math.round(Math.random() * 10) * 30,
+          unit: 'minutes',
+        },
+      })
+    );
+
+    return res(
+      ctx.status(200),
+      ctx.json<ProjectDetailsResponse>({
+        project,
+        registrations,
+      })
     );
   }),
 ];

@@ -1,10 +1,6 @@
 import {
   Badge,
   Button,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Table,
   TableCaption,
   TableContainer,
@@ -61,15 +57,17 @@ export default function ProjectsPage() {
                   fontSize="inherit"
                   fontWeight="inherit"
                   isActive={sorting !== 'none'}
+                  textDecoration="underline"
                   _active={{ color: 'teal', textDecoration: 'underline' }}
                   onClick={toggleSort}
                 >
                   Deadline
+                  <span hidden={sorting !== 'desc'}>&nbsp;&#9650;</span>
+                  <span hidden={sorting !== 'asc'}>&nbsp;&#9660;</span>
                 </Button>
               </Th>
               <Th>Project status</Th>
               <Th isNumeric>Time spent</Th>
-              <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -78,8 +76,9 @@ export default function ProjectsPage() {
                 <Td>
                   <Button
                     variant="link"
+                    colorScheme="blue"
                     as={NavLink}
-                    to={APP_ROUTES.projectOverview(
+                    to={APP_ROUTES.projectDetails(
                       encodeURIComponent(project.id)
                     )}
                   >
@@ -102,21 +101,6 @@ export default function ProjectsPage() {
                     { maximumFractionDigits: 1 }
                   )}
                   h
-                </Td>
-                <Td>
-                  <Menu>
-                    <MenuButton
-                      as={Button}
-                      colorScheme="blue"
-                      variant="outline"
-                    >
-                      Actions
-                    </MenuButton>
-                    <MenuList>
-                      <MenuItem>Register time</MenuItem>
-                      <MenuItem>View project</MenuItem>
-                    </MenuList>
-                  </Menu>
                 </Td>
               </Tr>
             ))}

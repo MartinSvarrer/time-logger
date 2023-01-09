@@ -13,7 +13,7 @@ export default function TopBar() {
       colorScheme="blue"
     >
       <Button as={NavLink} to={APP_ROUTES.projects} end>
-        Projects
+        All Projects
       </Button>
     </ButtonGroup>
   );

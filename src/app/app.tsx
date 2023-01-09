@@ -7,7 +7,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { APP_ROUTES } from './AppRoutes';
 import PageNotFoundPage from './page-not-found/PageNotFoundPage';
-import ProjectOverviewPage from './project-overview/ProjectOverviewPage';
+import ProjectDetailsPage from './projects/ProjectDetailsPage';
 import ProjectsPage from './projects/ProjectsPage';
 import TopBar from './top-bar/TopBar';
 
@@ -25,8 +25,8 @@ export function App() {
           />
           <Route path={APP_ROUTES.projects} element={<ProjectsPage />} />
           <Route
-            path={APP_ROUTES.projectOverview()}
-            element={<ProjectOverviewPage />}
+            path={APP_ROUTES.projectDetails()}
+            element={<ProjectDetailsPage />}
           />
           <Route path={APP_ROUTES.fallback} element={<PageNotFoundPage />} />
         </Routes>
