@@ -12,14 +12,11 @@ import {
   Tr,
   VStack,
 } from '@chakra-ui/react';
-import { minutesToHours } from '@time-logger/lib/time/Time';
 import { useParams } from 'react-router-dom';
+import { minutesToHours } from '../../lib/time/Time';
 import { useProjectDetails } from './projects';
 
-/* eslint-disable-next-line */
-export interface ProjectDetailsProps {}
-
-export function ProjectDetailsPage(props: ProjectDetailsProps) {
+export function ProjectDetailsPage() {
   const params = useParams();
   const { data } = useProjectDetails(params.id);
 
@@ -31,7 +28,11 @@ export function ProjectDetailsPage(props: ProjectDetailsProps) {
     <VStack padding={2} gap={2} width="100%">
       <Heading>{data.project.name}</Heading>
       <ButtonGroup>
-        <Button variant="solid" colorScheme="blue">
+        <Button
+          variant="solid"
+          colorScheme="blue"
+          disabled={data.project.status === 'closed'}
+        >
           Register time
         </Button>
         <Button
@@ -48,18 +49,26 @@ export function ProjectDetailsPage(props: ProjectDetailsProps) {
           <Thead>
             <Tr>
               <Th>Description</Th>
+              <Th isNumeric>Registered</Th>
               <Th isNumeric>Time (hours)</Th>
             </Tr>
           </Thead>
-          <Tbody>
+          <Tbody data-testid="timeRegistrations">
             {data.registrations.map((registration) => (
               <Tr key={registration.id}>
                 <Td
-                  maxWidth={[200, 350, 600, 800]}
+                  maxWidth={[200, 200, 400, 600]}
                   textOverflow="ellipsis"
                   overflow="hidden"
+                  title={registration.description}
                 >
                   {registration.description}
+                </Td>
+                <Td isNumeric>
+                  {new Date(registration.registeredAt).toLocaleDateString(
+                    'en-US',
+                    { dateStyle: 'short' }
+                  )}
                 </Td>
                 <Td isNumeric>
                   {minutesToHours(registration.time.value).toLocaleString(

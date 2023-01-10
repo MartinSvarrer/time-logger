@@ -1,6 +1,6 @@
 import { Button, ButtonGroup } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
-import { APP_ROUTES } from '../AppRoutes';
+import { APP_ROUTES } from './AppRoutes';
 
 export default function TopBar() {
   return (

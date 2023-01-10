@@ -1,5 +1,5 @@
-import { Project } from '@time-logger/lib/project/Project';
-import { Time } from '@time-logger/lib/time/Time';
+import { Project } from '../../lib/project/Project';
+import { Time } from '../../lib/time/Time';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
@@ -7,7 +7,7 @@ export interface ProjectsResponse {
   projects: Project[];
 }
 
-export const PROJECTS = {
+export const PROJECTS_API = {
   all: {
     url: 'api/projects',
     queryKey: 'projects',
@@ -19,9 +19,9 @@ export const PROJECTS = {
 };
 
 export function useProjects() {
-  return useQuery(PROJECTS.all.queryKey, () =>
+  return useQuery(PROJECTS_API.all.queryKey, () =>
     axios
-      .get<ProjectsResponse>(PROJECTS.all.url)
+      .get<ProjectsResponse>(PROJECTS_API.all.url)
       .then((response) => response.data)
   );
 }
@@ -40,10 +40,10 @@ export interface ProjectDetailsResponse {
 
 export function useProjectDetails(id?: string) {
   return useQuery(
-    PROJECTS.details.queryKey,
+    PROJECTS_API.details.queryKey,
     () =>
       axios
-        .get<ProjectDetailsResponse>(PROJECTS.details.url(id ?? ''))
+        .get<ProjectDetailsResponse>(PROJECTS_API.details.url(id ?? ''))
         .then((response) => response.data),
     { enabled: !!id }
   );

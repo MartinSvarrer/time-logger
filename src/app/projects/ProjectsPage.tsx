@@ -11,8 +11,8 @@ import {
   Tr,
   VStack,
 } from '@chakra-ui/react';
-import { minutesToHours } from '@time-logger/lib/time/Time';
-import { APP_ROUTES } from 'app/AppRoutes';
+import { minutesToHours } from '../../lib/time/Time';
+import { APP_ROUTES } from '../AppRoutes';
 import { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useProjects } from './projects';
@@ -78,9 +78,7 @@ export default function ProjectsPage() {
                     variant="link"
                     colorScheme="blue"
                     as={NavLink}
-                    to={APP_ROUTES.projectDetails(
-                      encodeURIComponent(project.id)
-                    )}
+                    to={APP_ROUTES.projectDetails(project.id)}
                   >
                     {project.name}
                   </Button>

@@ -1,21 +1,24 @@
-import ProjectsPage from './ProjectsPage';
 import { projectsHandlers, ProjectsResponseMock } from './projects.mock';
 import {
   findAllByRole,
   findByRole,
-  renderWithProviders,
   screen,
   fireEvent,
   waitFor,
-} from 'test/test-utils';
+} from '@testing-library/react';
 import { server } from '../../mocks/server';
-import { Location, useLocation } from 'react-router-dom';
+import { renderApp } from '../App.spec.util';
+import { APP_ROUTES } from '../AppRoutes';
+import {
+  LocationDisplay,
+  LOCATION_DISPLAY_TEST_ID,
+} from '../../lib/router/LocationDisplay';
 
 describe('ProjectsPage', () => {
   it('should show a list of projects in same order as received data', async () => {
     // arrange
     server.use(...projectsHandlers);
-    renderWithProviders(<ProjectsPage />);
+    renderApp({ initialPath: APP_ROUTES.projects });
 
     // act
 
@@ -33,7 +36,7 @@ describe('ProjectsPage', () => {
   it('should be able to sort my projects by deadline (closest deadline first)', async () => {
     // arrange
     server.use(...projectsHandlers);
-    renderWithProviders(<ProjectsPage />);
+    renderApp({ initialPath: APP_ROUTES.projects });
 
     // act
     const tableHeader = screen.getAllByRole('rowgroup')[0];
@@ -67,26 +70,10 @@ describe('ProjectsPage', () => {
   it('should navigate to project overview page when project name is clicked', async () => {
     // arrange
     server.use(...projectsHandlers);
-
-    let currentLocation: Location = {
-      hash: '',
-      key: '',
-      pathname: '',
-      search: '',
-      state: null,
-    };
-
-    function CaptureCurrentLocation() {
-      currentLocation = useLocation();
-      return null;
-    }
-
-    renderWithProviders(
-      <>
-        <ProjectsPage />
-        <CaptureCurrentLocation />
-      </>
-    );
+    renderApp({
+      initialPath: APP_ROUTES.projects,
+      otherChildren: <LocationDisplay />,
+    });
 
     // act
     const firstProject = ProjectsResponseMock.projects[0];
@@ -99,6 +86,8 @@ describe('ProjectsPage', () => {
     fireEvent.click(firstProjectLinkBtn);
 
     // assert
-    expect(currentLocation?.pathname).include(firstProject.id);
+    const locationDisplay = screen.getByTestId(LOCATION_DISPLAY_TEST_ID);
+
+    expect(locationDisplay.textContent).include(firstProject.id);
   });
 });

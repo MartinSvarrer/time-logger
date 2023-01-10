@@ -13,13 +13,7 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "test/*": ["src/test/*"],
-      "app/*": ["src/app/*"],
-      "@time-logger/lib/*": ["src/lib/*"],
-      "@time-logger/components/*": ["src/components/*"]
-    }
+    "baseUrl": "."
   },
   "exclude": ["node_modules", "tmp"]
 }
