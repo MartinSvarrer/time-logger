@@ -58,15 +58,19 @@ export const projectsHandlers = [
       return res(ctx.status(404, 'Project not found'));
     }
 
+    // Generate some time registrations
+    const MS_IN_A_DAY = 86400000;
+    const MINIMUM_TIME_MINUTES = 30;
+
     const registrations = Array.from<unknown, TimeRegistration>(
       { length: 20 },
       (_, index) => ({
         id: 'reg' + index,
         description:
           'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea sapiente magnam recusandae blanditiis similique illo provident officia repudiandae quis nemo dolorum error reprehenderit ut, perferendis animi, temporibus beatae nulla. Praesentium.',
-        registeredAt: new Date(Date.now()).toISOString(),
+        registeredAt: new Date(Date.now() - MS_IN_A_DAY * index).toISOString(),
         time: {
-          value: Math.round(Math.random() * 10) * 30,
+          value: Math.round(Math.random() * 10) * MINIMUM_TIME_MINUTES,
           unit: 'minutes',
         },
       })
