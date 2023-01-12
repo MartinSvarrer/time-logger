@@ -12,7 +12,7 @@ import { APP_ROUTES } from '../AppRoutes';
 import {
   LocationDisplay,
   LOCATION_DISPLAY_TEST_ID,
-} from '../../lib/router/LocationDisplay';
+} from '../../lib/LocationDisplay';
 
 describe('ProjectsPage', () => {
   it('should show a list of projects in same order as received data', async () => {

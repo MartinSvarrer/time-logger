@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useInstance } from '../lib/hooks/useInstance';
+import { useInstance } from '../lib/useInstance';
 
 /**
  * Shared providers are shared between app entries, like browser client and tests.

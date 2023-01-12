@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import {
   LocationDisplay,
   LOCATION_DISPLAY_TEST_ID,
-} from '../lib/router/LocationDisplay';
+} from '../lib/LocationDisplay';
 import { APP_ROUTES } from './AppRoutes';
 import { renderApp } from './App.spec.util';
 

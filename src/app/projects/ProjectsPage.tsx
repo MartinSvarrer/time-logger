@@ -11,11 +11,11 @@ import {
   Tr,
   VStack,
 } from '@chakra-ui/react';
-import { minutesToHours } from '../../lib/time/Time';
 import { APP_ROUTES } from '../AppRoutes';
 import { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useProjects } from './projects';
+import { useProjects } from './projects.service';
+import { minutesToHours } from '../../lib/time';
 
 export default function ProjectsPage() {
   const { data } = useProjects();
@@ -94,7 +94,7 @@ export default function ProjectsPage() {
                   )}
                 </Td>
                 <Td isNumeric>
-                  {minutesToHours(project.timeSpent.value).toLocaleString(
+                  {minutesToHours(project.totalTimeSpent.value).toLocaleString(
                     'en-US',
                     { maximumFractionDigits: 1 }
                   )}

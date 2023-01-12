@@ -2,7 +2,7 @@ import { server } from '../../mocks/server';
 import { findAllByRole, screen } from '@testing-library/react';
 
 import { ProjectsResponseMock } from './projects.mock';
-import { ProjectDetailsResponse, PROJECTS_API } from './projects';
+import { ProjectDetailsResponse, projectEndpoints } from './projects.service';
 import { rest } from 'msw';
 import { APP_ROUTES } from '../AppRoutes';
 import { renderApp } from '../App.spec.util';
@@ -18,19 +18,19 @@ describe('ProjectDetailsPage', () => {
           description: 'A description',
           id: 'reg1',
           registeredAt: '2023-01-09T22:18:53.308Z',
-          time: { unit: 'minutes', value: 90 },
+          timePeriod: { unit: 'minutes', value: 90 },
         },
         {
           description: 'Another description',
           id: 'reg2',
           registeredAt: '2023-01-07T20:10:10.100Z',
-          time: { unit: 'minutes', value: 60 },
+          timePeriod: { unit: 'minutes', value: 60 },
         },
       ],
     };
 
     server.use(
-      rest.get(PROJECTS_API.details.url(':id'), (req, res, ctx) => {
+      rest.get(projectEndpoints.getProjectDetail(':id'), (req, res, ctx) => {
         return res(ctx.json(mockProjectDetails));
       })
     );

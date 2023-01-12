@@ -13,8 +13,8 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { minutesToHours } from '../../lib/time/Time';
-import { useProjectDetails } from './projects';
+import { minutesToHours } from '../../lib/time';
+import { useProjectDetails } from './projects.service';
 
 export function ProjectDetailsPage() {
   const params = useParams();
@@ -71,7 +71,7 @@ export function ProjectDetailsPage() {
                   )}
                 </Td>
                 <Td isNumeric>
-                  {minutesToHours(registration.time.value).toLocaleString(
+                  {minutesToHours(registration.timePeriod.value).toLocaleString(
                     'en-US',
                     { maximumFractionDigits: 1 }
                   )}
