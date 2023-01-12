@@ -1,4 +1,4 @@
-import { AppLayout, AppLayoutHeader, AppLayoutMain } from './AppLayout';
+import { AppLayout, AppLayoutHeader, AppLayoutMain } from '../lib/AppLayout';
 import AppRoutes from './AppRoutes';
 import TopBar from './TopBar';
 
