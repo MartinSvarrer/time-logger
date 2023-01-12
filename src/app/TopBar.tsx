@@ -1,6 +1,6 @@
 import { Button, ButtonGroup } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
-import { APP_ROUTES } from './AppRoutes';
+import { appRoutes } from './AppRoutes';
 
 export default function TopBar() {
   return (
@@ -12,7 +12,7 @@ export default function TopBar() {
       variant="ghost"
       colorScheme="blue"
     >
-      <Button as={NavLink} to={APP_ROUTES.projects} end>
+      <Button as={NavLink} to={appRoutes.projects} end>
         All Projects
       </Button>
     </ButtonGroup>

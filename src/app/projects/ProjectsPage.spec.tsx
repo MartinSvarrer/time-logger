@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react';
 import { server } from '../../mocks/server';
 import { renderApp } from '../App.spec.util';
-import { APP_ROUTES } from '../AppRoutes';
+import { appRoutes } from '../AppRoutes';
 import {
   LocationDisplay,
   LOCATION_DISPLAY_TEST_ID,
@@ -18,7 +18,7 @@ describe('ProjectsPage', () => {
   it('should show a list of projects in same order as received data', async () => {
     // arrange
     server.use(...projectsHandlers);
-    renderApp({ initialPath: APP_ROUTES.projects });
+    renderApp({ initialPath: appRoutes.projects });
 
     // act
 
@@ -36,7 +36,7 @@ describe('ProjectsPage', () => {
   it('should be able to sort my projects by deadline (closest deadline first)', async () => {
     // arrange
     server.use(...projectsHandlers);
-    renderApp({ initialPath: APP_ROUTES.projects });
+    renderApp({ initialPath: appRoutes.projects });
 
     // act
     const tableHeader = screen.getAllByRole('rowgroup')[0];
@@ -71,7 +71,7 @@ describe('ProjectsPage', () => {
     // arrange
     server.use(...projectsHandlers);
     renderApp({
-      initialPath: APP_ROUTES.projects,
+      initialPath: appRoutes.projects,
       otherChildren: <LocationDisplay />,
     });
 

@@ -4,7 +4,7 @@ import {
   LocationDisplay,
   LOCATION_DISPLAY_TEST_ID,
 } from '../lib/LocationDisplay';
-import { APP_ROUTES } from './AppRoutes';
+import { appRoutes } from './AppRoutes';
 import { renderApp } from './App.spec.util';
 
 import * as ProjectsPageModule from './projects/ProjectsPage';
@@ -18,7 +18,7 @@ describe('App', () => {
     // arrange
     renderApp({
       otherChildren: <LocationDisplay />,
-      initialPath: APP_ROUTES.root,
+      initialPath: appRoutes.root,
     });
 
     // act
@@ -27,7 +27,7 @@ describe('App', () => {
     // assert
     const locationDisplay = screen.getByTestId(LOCATION_DISPLAY_TEST_ID);
 
-    expect(locationDisplay.textContent).toBe(APP_ROUTES.projects);
+    expect(locationDisplay.textContent).toBe(appRoutes.projects);
   });
 
   it('should fallback to 404 page unknown paths', () => {

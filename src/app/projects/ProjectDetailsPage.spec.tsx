@@ -4,7 +4,7 @@ import { findAllByRole, screen } from '@testing-library/react';
 import { ProjectsResponseMock } from './projects.mock';
 import { ProjectDetailsResponse, projectEndpoints } from './projects.service';
 import { rest } from 'msw';
-import { APP_ROUTES } from '../AppRoutes';
+import { appRoutes } from '../AppRoutes';
 import { renderApp } from '../App.spec.util';
 
 describe('ProjectDetailsPage', () => {
@@ -35,7 +35,7 @@ describe('ProjectDetailsPage', () => {
       })
     );
 
-    renderApp({ initialPath: APP_ROUTES.projectDetails(mockProject.id) });
+    renderApp({ initialPath: appRoutes.projectDetails(mockProject.id) });
 
     // act
 

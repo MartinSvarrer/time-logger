@@ -3,7 +3,7 @@ import PageNotFoundPage from './page-not-found/PageNotFoundPage';
 import ProjectDetailsPage from './projects/ProjectDetailsPage';
 import ProjectsPage from './projects/ProjectsPage';
 
-export const APP_ROUTES = {
+export const appRoutes = {
   root: '/',
   projects: '/projects',
   projectDetails: (id: string) => `/projects/${id}`,
@@ -12,17 +12,21 @@ export const APP_ROUTES = {
 
 export default function AppRoutes() {
   return (
-    <Routes>
-      <Route
-        path={APP_ROUTES.root}
-        element={<Navigate to={APP_ROUTES.projects} replace />}
-      />
-      <Route path={APP_ROUTES.projects} element={<ProjectsPage />} />
-      <Route
-        path={APP_ROUTES.projectDetails(':id')}
-        element={<ProjectDetailsPage />}
-      />
-      <Route path={APP_ROUTES.fallback} element={<PageNotFoundPage />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route
+          path={appRoutes.root}
+          element={<Navigate to={appRoutes.projects} replace />}
+        />
+      </Routes>
+      <Routes>
+        <Route path={appRoutes.projects} element={<ProjectsPage />} />
+        <Route
+          path={appRoutes.projectDetails(':id')}
+          element={<ProjectDetailsPage />}
+        />
+        <Route path={appRoutes.fallback} element={<PageNotFoundPage />} />
+      </Routes>
+    </>
   );
 }

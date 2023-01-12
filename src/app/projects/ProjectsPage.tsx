@@ -11,7 +11,7 @@ import {
   Tr,
   VStack,
 } from '@chakra-ui/react';
-import { APP_ROUTES } from '../AppRoutes';
+import { appRoutes } from '../AppRoutes';
 import { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useProjects } from './projects.service';
@@ -78,7 +78,7 @@ export default function ProjectsPage() {
                     variant="link"
                     colorScheme="blue"
                     as={NavLink}
-                    to={APP_ROUTES.projectDetails(project.id)}
+                    to={appRoutes.projectDetails(project.id)}
                   >
                     {project.name}
                   </Button>
