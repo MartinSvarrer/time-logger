@@ -49,13 +49,15 @@ export function fetchProjectDetails(id: string) {
 export const projectKeys = {
   ALL: 'projects' as const,
   lists: () => [projectKeys.ALL, 'list'] as const,
-  list: (filters: string[]) => [...projectKeys.lists(), { filters }] as const,
+  list: (filters: string) => [...projectKeys.lists(), { filters }] as const,
   details: () => [projectKeys.ALL, 'detail'] as const,
   detail: (id: string) => [...projectKeys.details(), id] as const,
 };
 
+export const NO_FILTERS = '';
+
 export function useProjects() {
-  return useQuery(projectKeys.list([]), () =>
+  return useQuery(projectKeys.list(NO_FILTERS), () =>
     fetchProjects().then((response) => response.data)
   );
 }

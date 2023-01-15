@@ -13,7 +13,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { minutesToHours } from '../../lib/time';
+import { minutesToHours } from '../../lib/datetime';
 import { useProjectDetails } from './projects.service';
 
 export function ProjectDetailsPage() {

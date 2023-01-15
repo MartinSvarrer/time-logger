@@ -1,4 +1,4 @@
-import { projectsHandlers, ProjectsResponseMock } from './projects.mock';
+import { projectsHandlers, mockProjectsMixedResponse } from './projects.mock';
 import {
   findAllByRole,
   findByRole,
@@ -26,9 +26,9 @@ describe('ProjectsPage', () => {
     const tableBody = screen.getAllByRole('rowgroup')[1];
     const rows = await findAllByRole(tableBody, 'row');
 
-    expect(rows).toHaveLength(ProjectsResponseMock.projects.length);
+    expect(rows).toHaveLength(mockProjectsMixedResponse.projects.length);
 
-    ProjectsResponseMock.projects.forEach((project, index) => {
+    mockProjectsMixedResponse.projects.forEach((project, index) => {
       expect(rows[index].textContent?.startsWith(project.name)).toBe(true);
     });
   });
@@ -54,16 +54,16 @@ describe('ProjectsPage', () => {
     const tableBody = screen.getAllByRole('rowgroup')[1];
     const rows = await findAllByRole(tableBody, 'row');
 
-    const closestDeadlineProject = ProjectsResponseMock.projects[1];
-    const furthestDeadlineProject = ProjectsResponseMock.projects[2];
+    const closestDeadlineProject = mockProjectsMixedResponse.projects[1];
+    const furthestDeadlineProject = mockProjectsMixedResponse.projects[2];
 
     expect(
       rows[0].textContent?.startsWith(closestDeadlineProject.name)
     ).toBeTruthy();
     expect(
-      rows[ProjectsResponseMock.projects.length - 1].textContent?.startsWith(
-        furthestDeadlineProject.name
-      )
+      rows[
+        mockProjectsMixedResponse.projects.length - 1
+      ].textContent?.startsWith(furthestDeadlineProject.name)
     ).toBeTruthy();
   });
 
@@ -76,7 +76,7 @@ describe('ProjectsPage', () => {
     });
 
     // act
-    const firstProject = ProjectsResponseMock.projects[0];
+    const firstProject = mockProjectsMixedResponse.projects[0];
 
     const tableBody = screen.getAllByRole('rowgroup')[1];
     const firstProjectLinkBtn = await findByRole(tableBody, 'link', {

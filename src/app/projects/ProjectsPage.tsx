@@ -15,7 +15,7 @@ import { appRoutes } from '../AppRoutes';
 import { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useProjects } from './projects.service';
-import { minutesToHours } from '../../lib/time';
+import { minutesToHours } from '../../lib/datetime';
 
 export default function ProjectsPage() {
   const { data } = useProjects();

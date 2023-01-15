@@ -1,7 +1,7 @@
 import { server } from '../../mocks/server';
 import { findAllByRole, screen } from '@testing-library/react';
 
-import { ProjectsResponseMock } from './projects.mock';
+import { mockProjectOpenLittleTime } from './projects.mock';
 import { ProjectDetailsResponse, projectEndpoints } from './projects.service';
 import { rest } from 'msw';
 import { appRoutes } from '../AppRoutes';
@@ -10,7 +10,7 @@ import { renderApp } from '../App.spec.util';
 describe('ProjectDetailsPage', () => {
   it('should show a list of time registrations based on current :id parameter', async () => {
     // arrange
-    const mockProject = ProjectsResponseMock.projects[0];
+    const mockProject = mockProjectOpenLittleTime;
     const mockProjectDetails: ProjectDetailsResponse = {
       project: mockProject,
       registrations: [
