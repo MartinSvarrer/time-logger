@@ -76,9 +76,7 @@ describe('RegisterTimeDialogButton', () => {
       exact: false,
     }) as HTMLInputElement;
 
-    fireEvent.focus(timeSpent);
     fireEvent.change(timeSpent, { target: { value: '' } });
-    fireEvent.blur(timeSpent);
 
     // act
     const submitBtn = screen.getByRole('button', { name: /submit/i });
@@ -111,9 +109,7 @@ describe('RegisterTimeDialogButton', () => {
       exact: false,
     }) as HTMLInputElement;
 
-    fireEvent.focus(timeSpent);
     fireEvent.change(timeSpent, { target: { value: '29' } });
-    fireEvent.blur(timeSpent);
 
     // act
     const submitBtn = screen.getByRole('button', { name: /submit/i });
@@ -151,17 +147,13 @@ describe('RegisterTimeDialogButton', () => {
       exact: false,
     }) as HTMLInputElement;
 
-    fireEvent.focus(timeSpent);
     fireEvent.change(timeSpent, { target: { value: '120' } });
-    fireEvent.blur(timeSpent);
 
     const description = screen.getByRole('textbox', {
       name: /description/i,
     });
 
-    fireEvent.focus(description);
     fireEvent.change(description, { target: { value: 'a description' } });
-    fireEvent.blur(description);
 
     const submitBtn = screen.getByRole('button', { name: /submit/i });
     fireEvent.click(submitBtn);
