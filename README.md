@@ -31,7 +31,7 @@ To make it easy to keep mock server data and query functions in sync, URL factor
 - NX comes with strict TypeScript config, decent lint rules and emotion css.
 - The workspace is configured as a modern Vite app with Vitest test runner. Webpack would be a safer choice, but I wanted to try out the Vite stack some time, and I think its ready for production.
 
-### Dependencies
+### Other dependencies
 
 - ChakraUI component library.
 - react-router-dom for basic app routing.
@@ -49,13 +49,9 @@ To make it easy to keep mock server data and query functions in sync, URL factor
 
 ## Other tasks
 
-- Unit tests: `npx nx run-many --target=test`
-- Linter: `npx nx run-many --target=lint`
-- Production build: `npx nx run-many --target=build`
-
-You can also just run the tasks for the default app:
-
-- `npx nx <task>` for example `npx nx build` or `npx nx test`.
+- Unit tests: `npx nx test`
+- Linter: `npx nx lint`
+- Production build: `npx nx build`
 
 ## Understand this workspace
 
