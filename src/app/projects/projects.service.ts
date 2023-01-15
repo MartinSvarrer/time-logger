@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { useQuery } from 'react-query';
+import axios, { AxiosResponse } from 'axios';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 export interface Time<Unit extends 'minutes' | 'seconds' | 'hours' | 'days'> {
   value: number;
@@ -30,10 +30,21 @@ export interface ProjectDetailsResponse {
   registrations: TimeRegistration[];
 }
 
+export interface TimeRegistrationPayload {
+  description: string;
+  timeSpent: Time<'minutes'>;
+}
+
+export interface TimeRegistrationResponse {
+  timeRegistration: TimeRegistration;
+}
+
 export const projectEndpoints = {
   BASE: '/api/v1/projects',
   getProjects: () => projectEndpoints.BASE,
   getProjectDetail: (id: string) => `${projectEndpoints.BASE}/${id}`,
+  postTimeRegistration: (projectId: string) =>
+    `${projectEndpoints.getProjectDetail(projectId)}/time`,
 };
 
 export function fetchProjects() {
@@ -44,6 +55,30 @@ export function fetchProjectDetails(id: string) {
   return axios.get<ProjectDetailsResponse>(
     projectEndpoints.getProjectDetail(id)
   );
+}
+
+export interface AddTimeRegistrationProps {
+  projectId: string;
+  description: string;
+  timeSpentMinutes: number;
+}
+
+export function addTimeRegistration({
+  projectId,
+  description,
+  timeSpentMinutes,
+}: AddTimeRegistrationProps) {
+  return axios.post<
+    TimeRegistrationResponse,
+    AxiosResponse<TimeRegistrationResponse>,
+    TimeRegistrationPayload
+  >(projectEndpoints.postTimeRegistration(projectId), {
+    description,
+    timeSpent: {
+      unit: 'minutes',
+      value: timeSpentMinutes,
+    },
+  });
 }
 
 export const projectKeys = {
@@ -68,4 +103,15 @@ export function useProjectDetails(id = '') {
     () => fetchProjectDetails(id).then((response) => response.data),
     { enabled: !!id }
   );
+}
+
+export function useAddTimeRegistration() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (props: AddTimeRegistrationProps) => addTimeRegistration(props),
+    onSuccess(data, variables) {
+      queryClient.invalidateQueries(projectKeys.detail(variables.projectId));
+    },
+  });
 }

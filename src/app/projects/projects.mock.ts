@@ -6,6 +6,8 @@ import {
   projectEndpoints,
   ProjectsResponse,
   TimeRegistration,
+  TimeRegistrationPayload,
+  TimeRegistrationResponse,
 } from './projects.service';
 
 export const mockProjectOpenNoTime: Project = {
@@ -94,4 +96,33 @@ export const projectsHandlers = [
       })
     );
   }),
+
+  rest.post<TimeRegistrationPayload, { id: string }, TimeRegistrationResponse>(
+    projectEndpoints.postTimeRegistration(':id'),
+    async (req, res, ctx) => {
+      const { id } = req.params;
+      const { description, timeSpent } =
+        (await req.json()) as TimeRegistrationPayload;
+
+      const project = mockProjectsMixedResponse.projects.find(
+        (project) => project.id === id
+      );
+
+      if (!project) {
+        return res(ctx.status(404, 'Project not found'));
+      }
+
+      return res(
+        ctx.status(200),
+        ctx.json({
+          timeRegistration: {
+            description,
+            id: 'r1000',
+            registeredAt: new Date(Date.now()).toISOString(),
+            timePeriod: timeSpent,
+          },
+        })
+      );
+    }
+  ),
 ];

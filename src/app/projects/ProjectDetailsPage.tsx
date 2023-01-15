@@ -15,6 +15,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { minutesToHours } from '../../lib/datetime';
 import { useProjectDetails } from './projects.service';
+import { RegisterTimeDialogButton } from './RegisterTimeDialogButton';
 
 export function ProjectDetailsPage() {
   const params = useParams();
@@ -28,13 +29,7 @@ export function ProjectDetailsPage() {
     <VStack padding={2} gap={2} width="100%">
       <Heading>{data.project.name}</Heading>
       <ButtonGroup>
-        <Button
-          variant="solid"
-          colorScheme="blue"
-          disabled={data.project.status === 'closed'}
-        >
-          Register time
-        </Button>
+        <RegisterTimeDialogButton project={data.project} />
         <Button
           variant="outline"
           colorScheme="blue"

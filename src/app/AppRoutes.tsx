@@ -12,21 +12,17 @@ export const appRoutes = {
 
 export default function AppRoutes() {
   return (
-    <>
-      <Routes>
-        <Route
-          path={appRoutes.root}
-          element={<Navigate to={appRoutes.projects} replace />}
-        />
-      </Routes>
-      <Routes>
-        <Route path={appRoutes.projects} element={<ProjectsPage />} />
-        <Route
-          path={appRoutes.projectDetails(':id')}
-          element={<ProjectDetailsPage />}
-        />
-        <Route path={appRoutes.fallback} element={<PageNotFoundPage />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route
+        path={appRoutes.root}
+        element={<Navigate to={appRoutes.projects} replace />}
+      />
+      <Route path={appRoutes.projects} element={<ProjectsPage />} />
+      <Route
+        path={appRoutes.projectDetails(':id')}
+        element={<ProjectDetailsPage />}
+      />
+      <Route path={appRoutes.fallback} element={<PageNotFoundPage />} />
+    </Routes>
   );
 }
